@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        {{Form::open(['route' => 'admin:ormas.store', 'method' => 'post', 'class' => 'icons-tab-steps wizard-circle', 'id' =>"devan-devano",'files' => true])}}
+                                        {{Form::open(['route' => 'admin:ormas.store', 'method' => 'post', 'class' => 'icons-tab-steps wizard-circle', 'id' =>"devan-devano",'files' => true])}} <!-- steps-validation -->
                                          @include('admin.ormas.form')
 
                                          <!-- Step 4 -->

@@ -36,6 +36,7 @@ class CreateOrmasTable extends Migration
             $table->string('nik_ketua')->nullable();
             $table->string('nik_sekretaris')->nullable();
             $table->string('nik_bendahara')->nullable();
+            $table->string('masa_bakti')->nullable();
             $table->string('nama_notaris')->nullable();
             $table->string('nomor_tgl_notaris')->nullable();
             $table->string('nomor_tgl_permohonan')->nullable();
