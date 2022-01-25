@@ -15,8 +15,8 @@ class CreateBidangKegiatanTable extends Migration
     {
         Schema::create('bidang_kegiatan', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_ormas');
-            $table->integer('bidang');
+            $table->integer('id_ormas')->nullabel();
+            $table->integer('bidang')->nullable();
             $table->timestamps();
         });
     }

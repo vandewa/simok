@@ -41,9 +41,6 @@ class CreateOrmasTable extends Migration
             $table->string('nomor_tgl_notaris')->nullable();
             $table->string('nomor_tgl_permohonan')->nullable();
             $table->string('npwp')->nullable();
-            $table->string('lambang')->nullable();
-            $table->string('bendera')->nullable();
-
             $table->timestamps();
         });
     }
