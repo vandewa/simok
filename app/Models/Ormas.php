@@ -11,8 +11,12 @@ class Ormas extends Model
     protected $table ='ormas';
     protected $guarded = [];
 
-    public function bidang()
+    // public function bidang()
+    // {
+    //     return $this->hasMany(Bidang::class, 'id_ormas');
+    // }
+    public function files()
     {
-        return $this->hasMany(Bidang::class, 'id_ormas');
+        return $this->hasOne(Files::class, 'id_ormas');
     }
 }

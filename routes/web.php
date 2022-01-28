@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrmasController;
+use App\Http\Controllers\KegiatanOrmasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +23,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/admin/ormas/ormas/list', [OrmasController::class, 'getOrmas'])->name('ormas.list');
+Route::get('/admin/ormas/list', [OrmasController::class, 'getOrmas'])->name('ormas.list');
+Route::get('/admin/kegiatan-ormas/list', [KegiatanOrmasController::class, 'getKegiatanOrmas'])->name('kegiatan-ormas.list');
+
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin:'], function () {
         Route::resource('ormas', OrmasController::class);
         Route::get('ormas/{id}/cetak-surat-pernyataan', [OrmasController::class, 'cetakSuratPernyataan'])->name('cetak.surat.pernyataan');
         Route::get('ormas/{id}/cetak-formulir-isian', [OrmasController::class, 'cetakFormulirIsian'])->name('cetak.formulir.isian');
         Route::get('ormas/{id}/cetak-formulir-keabsahan', [OrmasController::class, 'cetakFormulirKeabsahan'])->name('cetak.formulir.keabsahan');
+        Route::resource('kegiatan-ormas', KegiatanOrmasController::class);
     });
 });

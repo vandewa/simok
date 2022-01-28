@@ -52,44 +52,38 @@
 
      
      <div class="row">
-         <div class="col-md-6">
-             <div class="form-group">
-                 <label>Keputusan Tertinggi Organisasi :</label>
-                 {{Form::text('keputusan', null, ['class' => 'form-control required', 'placeholder' => 'Keputusan Tertinggi Organisasi'])}}
-             </div>
-         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Unit/Satuan/Sayap Otonom Organisasi :</label>
+                {{Form::text('unit', null, ['class' => 'form-control required', 'placeholder' => 'Unit/Satuan/Sayap Otonom Organisasi'])}}
+            </div>
+        </div>
 
-         <div class="col-md-6">
-             <div class="form-group">
-                 <label>Unit/Satuan/Sayap Otonom Organisasi :</label>
-                 {{Form::text('unit', null, ['class' => 'form-control required', 'placeholder' => 'Unit/Satuan/Sayap Otonom Organisasi'])}}
-             </div>
-         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Usaha Organisasi :</label>
+                {{Form::text('usaha', null, ['class' => 'form-control required', 'placeholder' => 'Usaha Organisasi'])}}
+            </div>
+        </div>
      </div>
 
       <div class="row">
-         <div class="col-md-6">
-             <div class="form-group">
-                 <label>Usaha Organisasi :</label>
-                 {{Form::text('usaha', null, ['class' => 'form-control required', 'placeholder' => 'Usaha Organisasi'])}}
-             </div>
-         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Sumber Keuangan :</label>
+                {{Form::text('sumber_keuangan', null, ['class' => 'form-control required', 'placeholder' => 'Sumber Keuangan'])}}
+            </div>
+        </div>
 
-         <div class="col-md-6">
-             <div class="form-group">
-                 <label>Sumber Keuangan :</label>
-                 {{Form::text('sumber_keuangan', null, ['class' => 'form-control required', 'placeholder' => 'Sumber Keuangan'])}}
-             </div>
-         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Program Kerja Ormas :</label>
+                {{Form::textarea('program', null, ['class' => 'form-control required','rows' => 3,])}}
+            </div>
+        </div>
      </div>
 
      <div class="row">
-         <div class="col-md-6">
-             <div class="form-group">
-                 <label>Program Kerja Ormas :</label>
-                 {{Form::textarea('program', null, ['class' => 'form-control required','rows' => 3,])}}
-             </div>
-         </div>
          <div class="col-md-6">
             <div class="form-group">
                 <label>Email Organisasi :</label>
@@ -165,6 +159,21 @@
             <div class="form-group">
                 <label>NIK Bendahara :</label>
                 {{Form::text('nik_bendahara', null, ['class' => 'form-control required', 'placeholder' => 'NIK Bendahara'])}}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Masa Bhakti Kepengurusan :</label>
+                {{Form::text('masa_bakti', null, ['class' => 'form-control required', 'placeholder' => 'Masa Bhakti Kepengurusan'])}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Keputusan Tertinggi Organisasi :</label>
+                {{Form::text('keputusan', null, ['class' => 'form-control required', 'placeholder' => 'Keputusan Tertinggi Organisasi'])}}
             </div>
         </div>
     </div>

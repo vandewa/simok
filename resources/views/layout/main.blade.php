@@ -154,7 +154,7 @@
                 </li>
                 <li class=" nav-item"><a href="{{ route('admin:ormas.index') }}"><i class="feather icon-book"></i><span class="menu-title" data-i18n="Email Application">Data Ormas</span></a>
                 </li>
-                <li class=" nav-item"><a href="app-email.html"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Email Application">Kegiatan Ormas</span></a>
+                <li class=" nav-item"><a href="{{ route('admin:kegiatan-ormas.index') }}"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Email Application">Kegiatan Ormas</span></a>
                 </li>
                 <li class=" navigation-header"><span>Manajemen User</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Manajemen User"></i>
                 </li>
