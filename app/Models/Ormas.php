@@ -19,4 +19,12 @@ class Ormas extends Model
     {
         return $this->hasOne(Files::class, 'id_ormas');
     }
+
+    public function getFullNameAttribute()
+    {
+        return ucwords($this->nama_organisasi);
+    }
+
+    
+
 }

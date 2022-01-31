@@ -16,7 +16,7 @@ class CreateFotoKegiatanTable extends Migration
         Schema::create('foto_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->integer('id_kegiatan_ormas');
-            $table->string('foto_kegiatan');
+            $table->string('images');
             $table->timestamps();
         });
     }

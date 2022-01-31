@@ -13,6 +13,12 @@ class KegiatanOrmas extends Model
 
      public function ormas()
     {
-        return $this->hasMany(Ormas::class, 'id_ormas');
+        return $this->belongsTo(Ormas::class, 'id_ormas');
     }
+
+    public function foto()
+    {
+        return $this->hasMany(FotoKegiatan::class, 'id_kegiatan_ormas');
+    }
+
 }

@@ -43,9 +43,9 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Tanggal</th>
                                                 <th>Nama Organisasi</th>
-                                                <th>Alamat</th>
-                                                <th>Formulir</th>
+                                                <th>Nama Kegiatan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -69,12 +69,13 @@
 			var table = $('.devan').DataTable({
 				processing: true,
 				serverSide: true,
-				ajax: "{{ route('ormas.list') }}",
+				ajax: "{{ route('kegiatan-ormas.list') }}",
+                "order": [[ 1, "desc" ]],
 				columns: [
 					{ data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false, className: "text-left"},
-					{data: 'nama_organisasi',},
-					{data: 'alamat', defaultContent: "-"},
-					{data: 'formulir',},
+					{data: 'tanggal',},
+					{data: 'id_ormas', defaultContent: "-"},
+					{data: 'nama_kegiatan',},
                     // {data: 'created_by', },
 					{
 						data: 'action', 

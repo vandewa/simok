@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/assets/css/image-uploader.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/vendors.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/extensions/unslider.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/weather-icons/climacons.min.css')}}">
@@ -26,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/daterange/daterangepicker.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/forms/selects/select2.min.css')}}">
+    
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -178,6 +181,13 @@
 
 
     <!-- BEGIN: Vendor JS-->
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        </script>
     <script src="{{ asset('stack-admin/app-assets/vendors/js/vendors.min.js')}}"></script>
     <!-- BEGIN Vendor JS-->
 
@@ -223,6 +233,12 @@
     <script src="{{ asset('stack-admin/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
 
     <script src="{{ asset('stack-admin/app-assets/js/scripts/tooltip/tooltip.js')}}"></script>
+
+    <script src="{{ asset('stack-admin/assets/js/pickers/picker_date.js')}}"></script>
+    <script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.date.js')}}"></script>
+
+
+    
 
     <script type="text/javascript">
         $(document).ready(function(e) {

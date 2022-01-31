@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ormas;
+use App\Models\KegiatanOrmas;
+use App\Models\FotoKegiatan;
+use DataTables;
 
 class KegiatanOrmasController extends Controller
 {
@@ -23,7 +27,9 @@ class KegiatanOrmasController extends Controller
      */
     public function create()
     {
-        return view('admin.kegiatan-ormas.create');
+        $ormas = Ormas::pluck('nama_organisasi', 'id');
+
+        return view('admin.kegiatan-ormas.create')->with('ormas', $ormas);
     }
 
     /**
@@ -34,7 +40,32 @@ class KegiatanOrmasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $b = KegiatanOrmas::create([
+            'id_ormas' => $request->id_ormas,
+            'nama_kegiatan' => $request->nama_kegiatan,
+            'tanggal' => date("Y-m-d", strtotime($request->tanggal)),
+            'deskripsi' => $request->deskripsi,  
+        ]);
+
+
+        if($request->hasfile('images')){
+            $files = $request->file('images');
+            $prefix = date('Ymdhis');
+            $no = 1;
+                foreach($files as $a){
+                    $extension = $a->extension();
+                    $filename = $prefix.'-'.$no.'.'.$extension;
+                    $a->move(public_path('/uploads'), $filename);
+                    $foto = new FotoKegiatan();
+                    $foto->id_kegiatan_ormas = $b->id;
+                    $foto->images = $filename;
+                    $foto->save();
+
+                    $no++;
+                    }
+            }
+
+            return view('admin.kegiatan-ormas.index');
     }
 
     /**
@@ -56,7 +87,13 @@ class KegiatanOrmasController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $data = KegiatanOrmas::find($id);
+        $foto = FotoKegiatan::where('id_kegiatan_ormas', $id)->get();
+        $ormas = Ormas::pluck('nama_organisasi', 'id');
+        $tanggal = \Carbon\Carbon::parse($data->tanggal)->format('m/d/Y');
+
+        return view('admin.kegiatan-ormas.edit', compact('data', 'tanggal', 'foto'))->with('ormas', $ormas);
     }
 
     /**
@@ -68,7 +105,15 @@ class KegiatanOrmasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        KegiatanOrmas::find($id)->
+        update([
+            'id_ormas' => $request->id_ormas,
+            'nama_kegiatan' => $request->nama_kegiatan,
+            'tanggal' => date("Y-m-d", strtotime($request->tanggal)),
+            'deskripsi' => $request->deskripsi,  
+        ]);
+
+        return view('admin.kegiatan-ormas.index');
     }
 
     /**
@@ -84,14 +129,15 @@ class KegiatanOrmasController extends Controller
 
     public function getKegiatanOrmas(Request $request)
     {
-            $data = KegiatanOrmas::with(['ormas'])->orderBy('tanggal', 'desc');
+            $data = KegiatanOrmas::with(['ormas']);
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '
                     <div class="">
-                    <a href="'.route('admin:ormas.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Ormas"><i class="fa fa-pencil mr-1" ></i>Edit</a>
-                    <a href="'.route('admin:ormas.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Ormas" ><i class="fa fa-trash mr-1"></i> Hapus</a>
+                    <a href="'.route('admin:kegiatan-ormas.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Ormas"><i class="fa fa-pencil mr-1" ></i>Edit</a>
+                    <a href="'.route('admin:kegiatan-ormas.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Ormas" ><i class="fa fa-trash mr-1"></i> Hapus</a>
                     </div>';
                     return $actionBtn;
                 })
@@ -105,11 +151,12 @@ class KegiatanOrmasController extends Controller
                 {
                     return ucwords($a->nama_kegiatan);
                 })
+
+                ->editColumn('id_ormas', function($a)
+                {
+                  return ucwords($a->ormas->nama_organisasi);
+                })
                 
-                // ->editColumn('created_by', function($a)
-                // {
-                //     return $a->nama->name;
-                // })
                 ->rawColumns(['action',])
                 ->make(true);
         
