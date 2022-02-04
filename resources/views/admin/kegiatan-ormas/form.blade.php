@@ -6,7 +6,7 @@
             <div class="form-group row">
                 <label class="col-md-3 label-control">Nama Organisasi</label>
                 <div class="col-md-9">   
-                    {{Form::select('id_ormas',$ormas, null, ['class' => 'select2 form-control', 'placeholder' => '-- Pilih Ormas --', ])}}
+                    {{Form::select('id_ormas',$ormas, null, ['class' => 'select2 form-control', 'placeholder' => '-- Pilih Ormas --',  'required' ])}}
                 </div>
             </div>
 
@@ -14,9 +14,9 @@
                 <label class="col-md-3 label-control">Tanggal</label>
                 <div class="col-md-9">
                     @if (!empty($data->tanggal))
-                    {{Form::text('tanggal', $tanggal, ['class' => 'form-control daterange-single', 'placeholder' => 'Tanggal',])}}
+                    {{Form::text('tanggal', $tanggal, ['class' => 'form-control pickadate', 'placeholder' => 'Tanggal',  'required'])}}
                     @else
-                    {{Form::text('tanggal', null, ['class' => 'form-control daterange-single', 'placeholder' => 'Tanggal',])}}
+                    {{Form::text('tanggal', null, ['class' => 'form-control pickadate', 'placeholder' => 'Tanggal',  'required'])}}
                     @endif
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="form-group row">
                 <label class="col-md-3 label-control">Nama Kegiatan</label>
                 <div class="col-md-9">
-                    {{Form::text('nama_kegiatan', null, ['class' => 'form-control border-primary', 'placeholder' => 'Nama Kegiatan',])}}
+                    {{Form::text('nama_kegiatan', null, ['class' => 'form-control border-primary', 'placeholder' => 'Nama Kegiatan',  'required'])}}
                 </div>
             </div>
         </div>
@@ -32,59 +32,14 @@
             <div class="form-group row">
                 <label class="col-md-3 label-control">Deskripsi Kegiatan</label>
                 <div class="col-md-9">
-                    {{Form::textarea('deskripsi', null, ['class' => 'form-control required','rows' => 6, 'placeholder' => 'Deskripsi Kegiatan' ])}}
+                    {{Form::textarea('deskripsi', null, ['class' => 'form-control required','rows' => 6, 'placeholder' => 'Deskripsi Kegiatan',  'required' ])}}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@if (empty($foto))
-  <div class="input-field">
-    <label class="active">Foto Kegiatan </label>
-    <div class="input-images-1" style="padding-top: .5rem;"></div>
-</div>
-@else
-<label class="active">Foto Kegiatan </label>
-        <div class="row">
-            <!-- Multiple titles -->
-        @foreach($foto as $data)
-        <div class="card col-2">
-        <div class="card-header d-flex justify-content-between">
-        </div>
-
-        <div class="card">
-        <a href="{{asset('uploads/'.$data->images) }}" target="_blank">
-        <img class="img-fluid" src="{{asset('uploads/'.$data->images) }}">
-        </a>
-        </div>
-
-        <div class="card bg-transparent d-flex justify-content-between">
-
-        {{-- <a href="{{route('posting.gambar.hapus',$data->id_attachment)}}" type="button"  class="btn btn-danger rounded-round" onclick="return confirm('Are you sure?')">Delete</a> --}}
-            <!-- class="deletee" untuk sweetalert -->
-        </div>
-        </div>
-        @endforeach
-        <!-- /multiple titles -->
-        </div>
-@endif
-
-  
-<div class="form-actions right">
-    <button type="button" class="btn btn-warning mr-1">
-        <i class="feather icon-x"></i> Cancel
-    </button>
-    <button type="submit" class="btn btn-primary">
-        <i class="fa fa-check-square-o"></i> Save
-    </button>
-</div>
-</form>
-
 @push('js')
-{{-- 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> --}}
 <script src="{{ asset('css/image-uploader.min.js')}}"></script>
 <script>
   $(function () {

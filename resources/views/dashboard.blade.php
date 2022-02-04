@@ -48,7 +48,7 @@
                                   <i class="icon-basket-loaded font-large-2 white"></i>
                               </div>
                               <div class="p-2 bg-gradient-x-warning white media-body">
-                                  <h5>New Orders</h5>
+                                  <h5>Total Akun Kesbangpol</h5>
                                   <h5 class="text-bold-400 mb-0"><i class="feather icon-arrow-down"></i> 4,658</h5>
                               </div>
                           </div>
@@ -63,7 +63,7 @@
                                   <i class="icon-wallet font-large-2 white"></i>
                               </div>
                               <div class="p-2 bg-gradient-x-success white media-body">
-                                  <h5>Total Profit</h5>
+                                  <h5>Total Akun Ormas</h5>
                                   <h5 class="text-bold-400 mb-0"><i class="feather icon-arrow-up"></i> 5.6 M</h5>
                               </div>
                           </div>

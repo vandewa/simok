@@ -7,15 +7,15 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title mb-0">Tambah Kegiatan Ormas</h3>
+                    <h3 class="content-header-title mb-0">Tambah User</h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">Kegiatan Ormas</a>
+                                <li class="breadcrumb-item"><a href="#">Data User</a>
                                 </li>
-                                <li class="breadcrumb-item active">Tambah Kegiatan Ormas
+                                <li class="breadcrumb-item active">Tambah User
                                 </li>
                             </ol>
                         </div>
@@ -28,27 +28,14 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title" id="horz-layout-colored-controls">Kegiatan Ormas</h4>
+                                <h4 class="card-title" id="horz-layout-colored-controls">Tambah User</h4>
                                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             </div>
                             <div class="card-content collpase show">
                                 <div class="card-body">
-                                    {{Form::open(['route' => 'admin:kegiatan-ormas.store', 'method' => 'post','files' => true, 'multiple' => true])}} 
-                                       @include('admin.kegiatan-ormas.form')
-
-                                       <div class="input-field">
-                                        <label class="active">Foto Kegiatan </label>
-                                        <div class="input-images-1" style="padding-top: .5rem;"></div>
-                                        </div>
-
-                                       <div class="form-actions right">
-                                        <button type="button" class="btn btn-warning mr-1">
-                                            <i class="feather icon-x"></i> Cancel
-                                        </button>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-check-square-o"></i> Save
-                                        </button>
-                                        </div>
+                                    {{Form::open(['route' => 'admin:management-user.store', 'method' => 'post','files' => true, 'multiple' => true])}} 
+                                       @include('admin.user.form')
+                                     
                                     {{Form::close()}}
                                 </div>
                             </div>
@@ -61,4 +48,12 @@
     <!-- END: Content-->
 @endsection
 
+
+@push('js')
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<!-- Laravel Javascript Validation -->
+<script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+{!! JsValidator::formRequest('App\Http\Requests\StoreUserRequest') !!}
+@endpush
 

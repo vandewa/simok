@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrmasController;
 use App\Http\Controllers\KegiatanOrmasController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/admin/ormas/list', [OrmasController::class, 'getOrmas'])->name('ormas.list');
 Route::get('/admin/kegiatan-ormas/list', [KegiatanOrmasController::class, 'getKegiatanOrmas'])->name('kegiatan-ormas.list');
+Route::get('/admin/management-user/list', [UserController::class, 'getUser'])->name('management-user.list');
+Route::get('/admin/management-users/{id}', [UserController::class, 'password'])->name('lihat.password');
+Route::put('/admin/management-users/{id}/edit', [UserController::class, 'passwordUpdate'])->name('ganti.password');
+
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin:'], function () {
@@ -33,5 +38,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::get('ormas/{id}/cetak-formulir-isian', [OrmasController::class, 'cetakFormulirIsian'])->name('cetak.formulir.isian');
         Route::get('ormas/{id}/cetak-formulir-keabsahan', [OrmasController::class, 'cetakFormulirKeabsahan'])->name('cetak.formulir.keabsahan');
         Route::resource('kegiatan-ormas', KegiatanOrmasController::class);
+        Route::resource('management-user', UserController::class);
     });
 });

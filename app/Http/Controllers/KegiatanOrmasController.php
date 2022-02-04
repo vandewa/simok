@@ -28,8 +28,9 @@ class KegiatanOrmasController extends Controller
     public function create()
     {
         $ormas = Ormas::pluck('nama_organisasi', 'id');
+        $foto = FotoKegiatan::where('id_kegiatan_ormas', 'a')->get();
 
-        return view('admin.kegiatan-ormas.create')->with('ormas', $ormas);
+        return view('admin.kegiatan-ormas.create', compact('foto'))->with('ormas', $ormas);
     }
 
     /**
@@ -40,6 +41,7 @@ class KegiatanOrmasController extends Controller
      */
     public function store(Request $request)
     {
+
         $b = KegiatanOrmas::create([
             'id_ormas' => $request->id_ormas,
             'nama_kegiatan' => $request->nama_kegiatan,
@@ -91,7 +93,7 @@ class KegiatanOrmasController extends Controller
         $data = KegiatanOrmas::find($id);
         $foto = FotoKegiatan::where('id_kegiatan_ormas', $id)->get();
         $ormas = Ormas::pluck('nama_organisasi', 'id');
-        $tanggal = \Carbon\Carbon::parse($data->tanggal)->format('m/d/Y');
+        $tanggal = \Carbon\Carbon::parse($data->tanggal)->format('d F, Y');
 
         return view('admin.kegiatan-ormas.edit', compact('data', 'tanggal', 'foto'))->with('ormas', $ormas);
     }
@@ -144,7 +146,7 @@ class KegiatanOrmasController extends Controller
                 
                 ->editColumn('tanggal', function($a)
                 {
-                    return \Carbon\Carbon::createFromTimeStamp(strtotime($a->tanggal))->isoFormat('D MMMM Y');;
+                    return \Carbon\Carbon::createFromTimeStamp(strtotime($a->tanggal))->isoFormat('D MMMM Y');
                 })
 
                 ->editColumn('nama_kegiatan', function($a)

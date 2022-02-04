@@ -26,7 +26,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/charts/morris.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/daterange/daterangepicker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/datetime/bootstrap-datetimepicker.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+  
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/forms/selects/select2.min.css')}}">
     
     <!-- END: Vendor CSS-->
@@ -44,8 +46,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/fonts/simple-line-icons/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/css/pages/timeline.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/css/plugins/forms/wizard.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/css/plugins/pickers/daterange/daterange.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/css/core/colors/palette-tooltip.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/css/plugins/pickers/daterange/daterange.css')}}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -120,48 +123,19 @@
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" navigation-header"><span></span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="General"></i>
                 </li>
-                <li class="nav-item active"><a href="{{ route('dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge badge-primary badge-pill float-right mr-2">3</span></a>
+                <li class="nav-item {{Request::is('dashboard') ? 'active' : ''}}"><a href="{{ route('dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge badge-primary badge-pill float-right mr-2">3</span></a>
                 </li>
-                
-                {{-- <li class=" nav-item"><a href="#"><i class="feather icon-monitor"></i><span class="menu-title" data-i18n="Templates">Templates</span></a>
-                    <ul class="menu-content">
-                        <li><a class="menu-item" href="#" data-i18n="Vertical">Vertical</a>
-                            <ul class="menu-content">
-                                <li><a class="menu-item" href="../vertical-modern-menu-template" data-i18n="Modern Menu">Modern Menu</a>
-                                </li>
-                                <li><a class="menu-item" href="../vertical-collapsed-menu-template" data-i18n="Collapsed Menu">Collapsed Menu</a>
-                                </li>
-                                <li><a class="menu-item" href="../vertical-menu-template" data-i18n="Semi Light">Semi Light</a>
-                                </li>
-                                <li><a class="menu-item" href="../vertical-menu-template-semi-dark" data-i18n="Semi Dark">Semi Dark</a>
-                                </li>
-                                <li><a class="menu-item" href="../vertical-menu-template-nav-dark" data-i18n="Nav Dark">Nav Dark</a>
-                                </li>
-                                <li><a class="menu-item" href="../vertical-menu-template-light" data-i18n="Light">Light</a>
-                                </li>
-                                <li><a class="menu-item" href="../vertical-overlay-menu-template" data-i18n="Overlay Menu">Overlay Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a class="menu-item" href="#" data-i18n="Horizontal">Horizontal</a>
-                            <ul class="menu-content">
-                                <li><a class="menu-item" href="../horizontal-menu-template" data-i18n="Classic">Classic</a>
-                                </li>
-                                <li><a class="menu-item" href="../horizontal-menu-template-nav" data-i18n="Nav Dark">Nav Dark</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li> --}}
+            
                 <li class=" navigation-header"><span>Ormas</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Ormas"></i>
                 </li>
-                <li class=" nav-item"><a href="{{ route('admin:ormas.index') }}"><i class="feather icon-book"></i><span class="menu-title" data-i18n="Email Application">Data Ormas</span></a>
+                <li class=" nav-item {{ request()->routeIs('admin:ormas*') ? 'active' : '' }}" ><a href="{{ route('admin:ormas.index') }}"><i class="feather icon-book"></i><span class="menu-title" data-i18n="Data Ormas">Data Ormas</span></a>
                 </li>
-                <li class=" nav-item"><a href="{{ route('admin:kegiatan-ormas.index') }}"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Email Application">Kegiatan Ormas</span></a>
+                <li class="nav-item {{ request()->routeIs('admin:kegiatan-ormas*') ? 'active' : '' }}"><a href="{{ route('admin:kegiatan-ormas.index') }}"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Kegiatan Ormas">Kegiatan Ormas</span></a>
                 </li>
+                
                 <li class=" navigation-header"><span>Manajemen User</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Manajemen User"></i>
                 </li>
-                <li class=" nav-item"><a href="app-email.html"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Email Application">Data User</span></a>
+                <li class=" nav-item {{ request()->routeIs('admin:management-user*') ? 'active' : '' }}"><a href="{{ route('admin:management-user.index') }}"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Data User">Data User</span></a>
                 </li>
             </ul>
         </div>
@@ -192,6 +166,16 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
+
+    {{-- <script src="{{ asset('stack-admin/app-assets/vendors/js/pickers/dateTime/moment-with-locales.min.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/vendors/js/pickers/dateTime/bootstrap-datetimepicker.min.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/vendors/js/pickers/pickadate/picker.time.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/vendors/js/pickers/pickadate/legacy.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/vendors/js/pickers/daterange/daterangepicker.js')}}"></script> --}}
+
+
     <script src="{{ asset('stack-admin/app-assets/vendors/js/charts/raphael-min.js')}}"></script>
     <script src="{{ asset('stack-admin/app-assets/vendors/js/charts/morris.min.js')}}"></script>
     <script src="{{ asset('stack-admin/app-assets/vendors/js/extensions/unslider-min.js')}}"></script>
@@ -214,6 +198,9 @@
     <script src="{{ asset('stack-admin/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
 
     <script src="{{ asset('stack-admin/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+
+
+
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -236,6 +223,19 @@
 
     <script src="{{ asset('stack-admin/assets/js/pickers/picker_date.js')}}"></script>
     <script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.date.js')}}"></script>
+
+    
+    {{-- <script src="{{ asset('stack-admin/app-assets/js/scripts/pickers/dateTime/bootstrap-datetime.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js')}}"></script> --}}
+
+    {{-- <script src="{{ asset('stack-admin/assets/js/pickers/daterangepicker.js')}}"></script>
+	<script src="{{ asset('stack-admin/assets/js/pickers/anytime.min.js')}}"></script>
+	<script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.js')}}"></script>
+	<script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.date.js')}}"></script>
+	<script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.time.js')}}"></script>
+	<script src="{{ asset('stack-admin/assets/js/pickers/pickadate/legacy.js')}}"></script>
+
+	<script src="{{ asset('stack-admin/assets/js/picker_date.js')}}"></script> --}}
 
 
     

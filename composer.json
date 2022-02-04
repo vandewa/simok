@@ -15,6 +15,7 @@
         "laravelcollective/html": "^6.2",
         "livewire/livewire": "^2.5",
         "phpoffice/phpword": "^0.18.2",
+        "proengsoft/laravel-jsvalidation": "^4.7",
         "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
@@ -36,7 +37,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/Devan.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

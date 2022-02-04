@@ -94,7 +94,7 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
                 // Confirm focus state, convert into text input to remove UA stylings,
                 // and set as readonly to prevent keyboard popup.
                 ELEMENT.autofocus = ELEMENT == getActiveElement()
-                ELEMENT.readOnly = !SETTINGS.editable
+                // ELEMENT.readOnly = !SETTINGS.editable
                 SETTINGS.id = ELEMENT.id = ELEMENT.id || STATE.id
                 if ( ELEMENT.type != 'text' ) {
                     ELEMENT.type = 'text'
