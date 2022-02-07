@@ -7,25 +7,23 @@
                 <div class="form-group row">
                     <label class="col-md-3 label-control">Username</label>
                     <div class="col-md-9">   
-                        {!! Form::email('email', null, ['class' => 'form-control', ]) !!}
+                        {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Username harus email',  ]) !!}
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-3 label-control">Nama ( Ormas / Admin Kesbangpol )</label>
                     <div class="col-md-9">   
-                        {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama ( Ormas / Admin Kesbangpol )',  'required' ])}}
+                        {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama ( Ormas / Admin Kesbangpol )', ])}}
                     </div>
                 </div>      
 
                 <div class="form-group row">
                     <label class="col-md-3 label-control">Peran</label>
                     <div class="col-md-9">   
-                        {{Form::select('role',get_code_role('ROLE_ST'), null, ['class' => 'form-control ',  'required'])}}
+                        {{Form::select('role',get_code_role('ROLE_ST'), null, ['class' => 'form-control', ])}}
                     </div>
                 </div>
-
-                {{-- @elseif (Route::current()->getName() == 'admin:management-user.show')
 
                 <div class="form-group row has-icon-left">
                     <label class="col-md-3 label-control">Password Baru</label>
@@ -45,7 +43,7 @@
                             <span id="mybutton2" onclick="change2()"><i class="feather icon-eye"></i></span>
                         </div>
                     </div>
-                </div> --}}
+                </div>
 
                 @else
 
@@ -70,17 +68,20 @@
                         {{Form::select('role',get_code_role('ROLE_ST'), null, ['class' => 'form-control ',  'required'])}}
                     </div>
                 </div>
-
             @endif
         </div>
     </div>
+</div>
 
 
   
 <div class="form-actions right">
-    <button type="button" class="btn btn-warning mr-1">
-        <i class="feather icon-x"></i> Cancel
-    </button>
+    <a href="{{ redirect()->getUrlGenerator()->previous() }}">
+        <button type="button" class="btn btn-warning mr-1">
+            <i class="feather icon-x"></i> Cancel
+        </button>
+    </a>
+
     <button type="submit" class="btn btn-primary">
         <i class="fa fa-check-square-o"></i> Save
     </button>

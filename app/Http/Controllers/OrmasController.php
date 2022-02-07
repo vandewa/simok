@@ -173,7 +173,7 @@ class OrmasController extends Controller
 
         $file->save();
 
-        return view('admin.ormas.index');
+        return redirect(route('admin:ormas.index'))->with('status', 'Ormas berhasil ditambah');
     }
 
     /**
@@ -184,7 +184,11 @@ class OrmasController extends Controller
      */
     public function show($id)
     {
-       //
+        $data = Ormas::find($id);
+        $bidang = Bidang::whereIdOrmas($id)->get()->pluck('bidang');
+        $file = Files::where('id_ormas',$id)->first();
+      
+        return view('admin.ormas.show', compact('data', 'bidang', 'file'));
     }
 
     /**
@@ -381,7 +385,8 @@ class OrmasController extends Controller
             ->update(['img_npwp' => $filename_npwp]);
         }
 
-        return view('admin.ormas.index');
+        return redirect(route('admin:ormas.index'))->with('status', 'Ormas berhasil diubah');
+
     }
 
     /**
@@ -396,7 +401,7 @@ class OrmasController extends Controller
 
         if(!empty($oke->lambang)){
             $lambang = public_path('uploads/').$oke->lambang;
-            unlink($lambang);
+            
         } 
        
         if(!empty($oke->bendera)){
@@ -482,6 +487,7 @@ class OrmasController extends Controller
                 ->addColumn('action', function($row){
                     $actionBtn = '
                     <div class="">
+                    <a href="'.route('admin:ormas.show', $row->id ).' " class="btn btn-outline-success round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Ormas"><i class="fa fa-eye mr-1" ></i>Detail</a>
                     <a href="'.route('admin:ormas.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Ormas"><i class="fa fa-pencil mr-1" ></i>Edit</a>
                     <a href="'.route('admin:ormas.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Ormas" ><i class="fa fa-trash mr-1"></i> Hapus</a>
                     </div>';

@@ -103,9 +103,10 @@
                     <ul class="nav navbar-nav float-right">                  
                         <li class="dropdown dropdown-user nav-item">
                             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="avatar avatar-online"><img src="{{ asset('stack-admin/app-assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar"><i></i></div><span class="user-name">{{ auth()->user()->name ?? '' }}</span>
+                                <div class="avatar avatar-online"><img src="{{ asset('stack-admin/app-assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar"><i></i></div><span class="user-name">{{ strtoupper(auth()->user()->name ?? '-') }} </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="login-with-bg-image.html"> <p style="font-size:5px;">A.K.A</p></a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="login-with-bg-image.html"><i class="feather icon-power"></i> Logout</a>
                             </div>
                         </li>
@@ -136,6 +137,14 @@
                 <li class=" navigation-header"><span>Manajemen User</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Manajemen User"></i>
                 </li>
                 <li class=" nav-item {{ request()->routeIs('admin:management-user*') ? 'active' : '' }}"><a href="{{ route('admin:management-user.index') }}"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Data User">Data User</span></a>
+                </li>
+
+                <li class=" navigation-header"><span>Akun</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Manajemen User"></i>
+                </li>
+                <li class=" nav-item"><a href=""><i class="fa fa-expeditedssl"></i><span class="menu-title" data-i18n="Data User">Ganti Password</span></a>
+                </li>
+
+                <li class=" nav-item"><a href=""><i class="fa fa-sign-out"></i><span class="menu-title" data-i18n="Data User">Logout</span></a>
                 </li>
             </ul>
         </div>
@@ -223,22 +232,12 @@
 
     <script src="{{ asset('stack-admin/assets/js/pickers/picker_date.js')}}"></script>
     <script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.date.js')}}"></script>
-
     
-    {{-- <script src="{{ asset('stack-admin/app-assets/js/scripts/pickers/dateTime/bootstrap-datetime.js')}}"></script>
-    <script src="{{ asset('stack-admin/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js')}}"></script> --}}
-
-    {{-- <script src="{{ asset('stack-admin/assets/js/pickers/daterangepicker.js')}}"></script>
-	<script src="{{ asset('stack-admin/assets/js/pickers/anytime.min.js')}}"></script>
-	<script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.js')}}"></script>
-	<script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.date.js')}}"></script>
-	<script src="{{ asset('stack-admin/assets/js/pickers/pickadate/picker.time.js')}}"></script>
-	<script src="{{ asset('stack-admin/assets/js/pickers/pickadate/legacy.js')}}"></script>
-
-	<script src="{{ asset('stack-admin/assets/js/picker_date.js')}}"></script> --}}
-
-
-    
+    <script>
+		$(function(){
+			$(".alert").delay(4000).slideUp(400);
+		});
+	</script>
 
     <script type="text/javascript">
         $(document).ready(function(e) {
@@ -260,66 +259,66 @@
         });
     </script>
 
-<script type="text/javascript">
-    $(document).ready(function(e) {
+    <script type="text/javascript">
+        $(document).ready(function(e) {
 
 
-        $('#bendera').change(function() {
-            console.log('berubah');
-            let reader = new FileReader();
+            $('#bendera').change(function() {
+                console.log('berubah');
+                let reader = new FileReader();
 
-            reader.onload = (e) => {
+                reader.onload = (e) => {
 
-                $('#preview-image-before-upload2').attr('src', e.target.result);
-            }
+                    $('#preview-image-before-upload2').attr('src', e.target.result);
+                }
 
-            reader.readAsDataURL(this.files[0]);
+                reader.readAsDataURL(this.files[0]);
+
+            });
 
         });
+    </script>
 
-    });
-</script>
-
-<script>
-    $(document).on('click', '.delete-data-table', function (a) {
-        a.preventDefault();
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you realy want to delete this records? This process cannot be undone.",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Delete!'
-        }).then((result) => {
-            if (result.value) {
-                a.preventDefault();
-                var url = $(this).attr('href');
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    url: url,
-                    method: 'delete',
-                    success: function () {
-                        Swal.fire(
-                            'Deleted!',
-                            'data has been deleted.',
-                            'success'
-                        )
-                        table.ajax.reload();
-                        if (typeof table2) {
-                            table2.ajax.reload();
+    <script>
+        $(document).on('click', '.delete-data-table', function (a) {
+            a.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you realy want to delete this records? This process cannot be undone.",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete!'
+            }).then((result) => {
+                if (result.value) {
+                    a.preventDefault();
+                    var url = $(this).attr('href');
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
-                    }
-                })
-            }
-        })
-    });
-</script>
+                    });
+
+                    $.ajax({
+                        url: url,
+                        method: 'delete',
+                        success: function () {
+                            Swal.fire(
+                                'Deleted!',
+                                'data has been deleted.',
+                                'success'
+                            )
+                            table.ajax.reload();
+                            if (typeof table2) {
+                                table2.ajax.reload();
+                            }
+                        }
+                    })
+                }
+            })
+        });
+    </script>
 
     <!-- END: Page JS-->
 

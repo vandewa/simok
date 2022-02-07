@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use DataTables;
@@ -46,7 +47,7 @@ class UserController extends Controller
             'role' => $request->role,
           ]);
 
-        return view('admin.user.create');
+        return redirect(route('admin:management-user.index'))->with('status', 'User '.ucwords($request->name).' berhasil ditambah');
     }
 
     /**
@@ -97,7 +98,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect(route('admin:management-user.index'));
+        return redirect(route('admin:management-user.index'))->with('status', 'User '.ucwords($request->name).' berhasil diubah');
     }
 
     public function password($id)
@@ -106,25 +107,10 @@ class UserController extends Controller
 
         return view('admin.user.lihat', compact('data'));
 
-        // if($request->filled('password')){
-        //     User::find($id)->update([
-        //         'password' => Hash::make($request->password)
-        //     ]);
-        // }
-
-        // return redirect(route('admin:management-user.index'));
     }
 
     public function passwordUpdate(Request $request, $id)
     {
-
-        return $request->all();
-
-        User::find($id)
-        ->update([
-            'name' => $request->name,
-            'role' => $request->role,
-        ]);
 
         if($request->filled('password')){
             User::find($id)->update([
@@ -132,7 +118,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect(route('admin:management-user.index'));
+        return redirect(route('admin:management-user.index'))->with('status', 'Password '.ucwords($request->name).' berhasil diubah');
     }
 
     /**
@@ -143,7 +129,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
     }
 
     public function getUser(Request $request)
@@ -154,10 +140,10 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '
-                    <div class="">
+                    <div>
                     <a href="'.route('admin:management-user.edit', $row->id ).' " class="btn btn-outline-info round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Edit Ormas"><i class="fa fa-pencil mr-1" ></i>Edit</a>
                     
-                    <a href="'.route('lihat.password', $row->id ).' " class="btn btn-outline-dark round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Ganti Password"><i class="fa fa-expeditedssl mr-1" ></i>Ganti Password</a>
+                    <a href="'.route('admin:lihat.password', $row->id ).' " class="btn btn-outline-dark round btn-min-width mr-1" data-toggle="tooltip" data-placement="top" title="Ganti Password"><i class="fa fa-expeditedssl mr-1" ></i>Ganti Password</a>
 
                     <a href="'.route('admin:management-user.destroy', $row->id ).' " class="btn btn-outline-danger round btn-min-width mr-1 delete-data-table" data-toggle="tooltip" data-placement="top" title="Hapus Ormas" ><i class="fa fa-trash mr-1"></i> Hapus</a>
 
@@ -177,10 +163,20 @@ class UserController extends Controller
 
                 ->editColumn('role', function($a)
                 {
-                    return $a->namanya->code_nm ?? '';
+                    if($a->namanya->code_nm == 'Admin Kesbangpol') {
+                        $role = '<span class="badge badge-succcess">'. $a->namanya->code_nm ?? ''.'</span>';
+                        return $role;
+                    } elseif($a->namanya->code_nm == 'Admin Ormas') {
+                        $role = '<span class="badge badge-danger">'. $a->namanya->code_nm ?? ''.'</span>';
+                        return $role; 
+                    } else {
+                        $role = '<span class="badge badge-secondary">'. $a->namanya->code_nm ?? ''.'</span>';
+                        return $role; 
+                    }
+
                 })
                 
-                ->rawColumns(['action',])
+                ->rawColumns(['action','role'])
                 ->make(true);
         
     }

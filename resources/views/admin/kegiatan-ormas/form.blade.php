@@ -32,7 +32,7 @@
             <div class="form-group row">
                 <label class="col-md-3 label-control">Deskripsi Kegiatan</label>
                 <div class="col-md-9">
-                    {{Form::textarea('deskripsi', null, ['class' => 'form-control required','rows' => 6, 'placeholder' => 'Deskripsi Kegiatan',  'required' ])}}
+                    {{Form::textarea('deskripsi', null, ['class' => 'form-control required','rows' => 6, 'placeholder' => 'Deskripsi Kegiatan',])}}
                 </div>
             </div>
         </div>

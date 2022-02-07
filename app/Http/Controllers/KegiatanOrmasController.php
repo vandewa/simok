@@ -67,7 +67,7 @@ class KegiatanOrmasController extends Controller
                     }
             }
 
-            return view('admin.kegiatan-ormas.index');
+            return redirect(route('admin:kegiatan-ormas.index'))->with('status', 'Kegiatan ormas berhasil ditambah');
     }
 
     /**
@@ -115,7 +115,7 @@ class KegiatanOrmasController extends Controller
             'deskripsi' => $request->deskripsi,  
         ]);
 
-        return view('admin.kegiatan-ormas.index');
+        return redirect(route('admin:kegiatan-ormas.index'))->with('status', 'Kegiatan ormas berhasil diubah');
     }
 
     /**
@@ -126,7 +126,18 @@ class KegiatanOrmasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $oke = FotoKegiatan::where('id_kegiatan_ormas',$id)->get();
+
+        if(!empty($oke)) {
+            foreach($oke as $okee){
+                $path = public_path('uploads/').$okee->images;
+                unlink($path);
+                FotoKegiatan::where('id_kegiatan_ormas',$id)->delete();                
+            }       
+        } 
+
+        KegiatanOrmas::destroy($id);
+       
     }
 
     public function getKegiatanOrmas(Request $request)

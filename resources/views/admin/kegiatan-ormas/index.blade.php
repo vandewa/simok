@@ -31,6 +31,14 @@
                     </div>
                 </div>
             </div>
+
+            @if(session('status'))
+            <div class="alert bg-success text-white alert-styled-left alert-dismissible mt-1" >
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                {{ session('status') }}
+            </div>
+            @endif
+            
             <div class="content-body">
             <!-- File export table -->
             <section id="file-export">

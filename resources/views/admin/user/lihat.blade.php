@@ -34,9 +34,9 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        {{Form::model($data, ['route' => ['ganti.password', $data->id], 'method' => 'put','files' => true])}}
-                                        {{-- {{ csrf_field() }}
-                                        {{ method_field('put') }} --}}
+                                        {{Form::model($data, ['route' => ['admin:ganti.password', $data->id], 'method' => 'put','files' => true])}}
+                                        {{ Form::hidden('name', null) }}
+                            
                                         <h4 class="form-section"><i class="fa fa-expeditedssl"></i> Ganti Password</h4>
 
                                         <div class="form-group row has-icon-left">
@@ -60,9 +60,12 @@
                                         </div>
 
                                         <div class="form-actions right">
+                                            <a href="{{ redirect()->getUrlGenerator()->previous() }}">
                                             <button type="button" class="btn btn-warning mr-1">
                                                 <i class="feather icon-x"></i> Cancel
                                             </button>
+                                            </a>
+
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fa fa-check-square-o"></i> Save
                                             </button>
@@ -87,7 +90,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <!-- Laravel Javascript Validation -->
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-{{-- {!! JsValidator::formRequest('App\Http\Requests\UpdateUserRequest') !!} --}}
+{!! JsValidator::formRequest('App\Http\Requests\UpdatePasswordRequest') !!}
 
 <script>
     function change()
