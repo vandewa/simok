@@ -12,16 +12,27 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-md-3 label-control">Nama ( Ormas / Admin Kesbangpol )</label>
-                    <div class="col-md-9">   
-                        {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama ( Ormas / Admin Kesbangpol )', ])}}
-                    </div>
-                </div>      
-
-                <div class="form-group row">
                     <label class="col-md-3 label-control">Peran</label>
                     <div class="col-md-9">   
-                        {{Form::select('role',get_code_role('ROLE_ST'), null, ['class' => 'form-control', ])}}
+                        {{Form::select('role',get_code_role('ROLE_ST'), null, ['class' => 'form-control', 'placeholder' => '-- Pilih --'])}}
+                    </div>
+                </div>
+
+                <div class="devandewa" style="display: none">
+                    <div class="form-group row">
+                        <label class="col-md-3 label-control">Pilih Ormas</label>
+                        <div class="col-md-9">   
+                            {{Form::select('id_ormas', $ormas,  null, ['class' => 'form-control', 'placeholder' => '-- Pilih Ormas --', ])}}
+                        </div>
+                    </div>
+                </div> 
+                
+                <div class="devandewananta" style="display: none">
+                    <div class="form-group row">
+                        <label class="col-md-3 label-control">Nama ( Admin Kesbangpol )</label>
+                        <div class="col-md-9">   
+                            {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama ( Admin Kesbangpol )',  'required' ])}}
+                        </div>
                     </div>
                 </div>
 
@@ -55,12 +66,24 @@
                     </div>
                 </div>
                 
+                @if(!empty($data->id_ormas))
+               
                 <div class="form-group row">
-                    <label class="col-md-3 label-control">Nama ( Ormas / Admin Kesbangpol )</label>
+                    <label class="col-md-3 label-control">Nama Ormas</label>
                     <div class="col-md-9">   
-                        {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama ( Ormas / Admin Kesbangpol )',  'required' ])}}
+                        {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama Ormas',  'required' ])}}
                     </div>
                 </div>
+
+                @else
+
+                <div class="form-group row">
+                    <label class="col-md-3 label-control">Nama ( Admin Kesbangpol )</label>
+                    <div class="col-md-9">   
+                        {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama ( Admin Kesbangpol )',  'required' ])}}
+                    </div>
+                </div>
+                @endif
 
                 <div class="form-group row">
                     <label class="col-md-3 label-control">Peran</label>
@@ -122,6 +145,28 @@
            document.getElementById('mybutton2').innerHTML = '<i class="feather icon-eye"></i>';
         }
      }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('select[name=role]').change(function(){
+            let isi = $(this).val();
+
+            if(isi == 'ROLE_ST_03' ){
+                $('.devandewa').show('slow');
+            }else{
+                $('.devandewa').hide('slow');
+                // $('#aa').val('');
+            }
+
+            if(isi == 'ROLE_ST_01' || isi == 'ROLE_ST_02' ){
+                $('.devandewananta').show('slow');
+            }else{
+                $('.devandewananta').hide('slow');
+                // $('#aa').val('');
+            }
+        });
+    });
 </script>
      
  @endpush

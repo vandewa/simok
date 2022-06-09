@@ -33,8 +33,8 @@
                             </div>
                             <div class="card-content collpase show">
                                 <div class="card-body">
-                                    {{Form::open(['route' => 'admin:kegiatan-ormas.store', 'method' => 'post','files' => true, 'multiple' => true])}} 
-                                       @include('admin.kegiatan-ormas.form')
+                                    {{Form::open(['route' => 'user:data-kegiatan-ormas.store', 'method' => 'post','files' => true, 'multiple' => true])}} 
+                                       @include('user.kegiatan-ormas.form')
 
                                        <div class="input-field">
                                         <label class="active">Foto Kegiatan </label>

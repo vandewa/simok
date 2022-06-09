@@ -8,6 +8,14 @@
         <div class="content-wrapper">
             <div class="content-header row">
             </div>
+
+            @if(session('status'))
+            <div class="alert bg-success text-white alert-styled-left alert-dismissible mt-1" >
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                {{ session('status') }}
+            </div>
+            @endif
+            
             <div class="content-body">
                 <!-- users edit start -->
                 <section class="users-edit">
@@ -570,73 +578,48 @@
 
                                     <div class="tab-pane" id="pengurus" aria-labelledby="pengurus-tab" role="tabpanel">
                                         
+                                        @foreach ($masa_bakti as $pengurus)
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <center>
-                                                            <label>Masa Bhakti Kepengurusan {{ strtoupper($data->nama_organisasi) }}</label>
+                                                            <label>Masa Bhakti Kepengurusan</label>
                                                         </center>
                                                         <center>
-                                                            <b><p style="font-size: 16px;">{{ $data->masa_bakti }}</p></b>
+                                                            <b><p style="font-size: 16px;">{{ $pengurus->masa_bakti }}</p></b>
                                                         </center>
                                                         <center>
                                                             <label>Ketua</label>
                                                         </center>
                                                         <center>
-                                                            <b><p style="font-size: 14px;">{{ $data->ketua.' ( '.$data->nik_ketua.' )' }} </p></b> 
+                                                            <b><p style="font-size: 14px;">{{ $pengurus->ketua }} </p></b> 
                                                         </center>
+                                                        {{-- <center>
+                                                            <b><p style="font-size: 14px;">{{ '( '.$pengurus->nik_ketua .' )'}} </p></b> 
+                                                        </center> --}}
                                                         <center>
                                                             <label>Sekretaris</label>
                                                         </center>
+                                                        {{-- <center>
+                                                            <b><p style="font-size: 14px;">{{ $pengurus->sekretaris.' ( '.$pengurus->nik_sekretaris.' )' }} </p></b> 
+                                                        </center> --}}
                                                         <center>
-                                                            <b><p style="font-size: 14px;">{{ $data->sekretaris.' ( '.$data->nik_sekretaris.' )' }} </p></b> 
+                                                            <b><p style="font-size: 14px;">{{ $pengurus->sekretaris }} </p></b> 
                                                         </center>
                                                         <center>
                                                             <label>Bendahara</label>
                                                         </center>
+                                                        {{-- <center>
+                                                            <b><p style="font-size: 14px;">{{ $pengurus->bendahara.' ( '.$pengurus->nik_bendahara.' )' }} </p></b> 
+                                                        </center> --}}
                                                         <center>
-                                                            <b><p style="font-size: 14px;">{{ $data->bendahara.' ( '.$data->nik_bendahara.' )' }} </p></b> 
+                                                            <b><p style="font-size: 14px;">{{ $pengurus->bendahara }} </p></b> 
                                                         </center>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                           <hr style="   border-top: 3px dashed  green;">
-
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <center>
-                                                            <label>Masa Bhakti Kepengurusan {{ strtoupper($data->nama_organisasi) }}</label>
-                                                        </center>
-                                                        <center>
-                                                            <b><p style="font-size: 16px;">{{ $data->masa_bakti }}</p></b>
-                                                        </center>
-                                                        <center>
-                                                            <label>Ketua</label>
-                                                        </center>
-                                                        <center>
-                                                            <b><p style="font-size: 14px;">{{ $data->ketua.' ( '.$data->nik_ketua.' )' }} </p></b> 
-                                                        </center>
-                                                        <center>
-                                                            <label>Sekretaris</label>
-                                                        </center>
-                                                        <center>
-                                                            <b><p style="font-size: 14px;">{{ $data->sekretaris.' ( '.$data->nik_sekretaris.' )' }} </p></b> 
-                                                        </center>
-                                                        <center>
-                                                            <label>Bendahara</label>
-                                                        </center>
-                                                        <center>
-                                                            <b><p style="font-size: 14px;">{{ $data->bendahara.' ( '.$data->nik_bendahara.' )' }} </p></b> 
-                                                        </center>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                          
-                                            
-
+                                           <hr style="border-top: 3px dashed  green;">
+                                        @endforeach
                                     {{Form::close()}}
                                 </div>
                             </div>

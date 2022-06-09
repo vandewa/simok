@@ -1,6 +1,7 @@
  <!-- Step 1 -->
  <h6><i class="step-icon fa fa-home"></i>Organisasi</h6>
  <fieldset>
+     <input type="hidden" name="id_ormas" value="{{ auth()->user()->id_ormas }}">
      <div class="row">
          <div class="col-md-6">
              <div class="form-group">

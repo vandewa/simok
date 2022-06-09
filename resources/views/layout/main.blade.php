@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/fonts/meteocons/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/charts/morris.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/tables/extensions/buttons.dataTables.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/daterange/daterangepicker.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/datetime/bootstrap-datetimepicker.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('stack-admin/app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
@@ -106,8 +107,9 @@
                                 <div class="avatar avatar-online"><img src="{{ asset('stack-admin/app-assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar"><i></i></div><span class="user-name">{{ strtoupper(auth()->user()->name ?? '-') }} </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="login-with-bg-image.html"> <p style="font-size:5px;">A.K.A</p></a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="login-with-bg-image.html"><i class="feather icon-power"></i> Logout</a>
+                                <a class="dropdown-item" href="{{ route('cek.profile') }}"><i class="feather icon-user"></i>Profile</a>
+                                <a class="dropdown-item" href="{{ route('user.password') }}"><i class="fa fa-expeditedssl"></i> Ganti Password</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('keluar') }}"><i class="feather icon-power"></i> Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -129,23 +131,32 @@
             
                 <li class=" navigation-header"><span>Ormas</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Ormas"></i>
                 </li>
-                <li class=" nav-item {{ request()->routeIs('admin:ormas*') ? 'active' : '' }}" ><a href="{{ route('admin:ormas.index') }}"><i class="feather icon-book"></i><span class="menu-title" data-i18n="Data Ormas">Data Ormas</span></a>
-                </li>
-                <li class="nav-item {{ request()->routeIs('admin:kegiatan-ormas*') ? 'active' : '' }}"><a href="{{ route('admin:kegiatan-ormas.index') }}"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Kegiatan Ormas">Kegiatan Ormas</span></a>
-                </li>
+                {{-- SUPERADMIN ATAU KESBANG --}}
+                @if(auth()->user()->role == 'ROLE_ST_01' || auth()->user()->role == 'ROLE_ST_02')
+                    <li class=" nav-item {{ request()->routeIs('admin:ormas*') ? 'active' : '' }}" ><a href="{{ route('admin:ormas.index') }}"><i class="feather icon-book"></i><span class="menu-title" data-i18n="Data Ormas">Data Ormas</span></a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('admin:kegiatan-ormas*') ? 'active' : '' }}"><a href="{{ route('admin:kegiatan-ormas.index') }}"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Kegiatan Ormas">Kegiatan Ormas</span></a>
+                    </li>
+                    
+                    <li class=" navigation-header"><span>Manajemen User</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Manajemen User"></i>
+                    </li>
+                    <li class=" nav-item {{ request()->routeIs('admin:management-user*') ? 'active' : '' }}"><a href="{{ route('admin:management-user.index') }}"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Data User">Data User</span></a>
+                    </li>
+                @else 
+                {{-- ORMAS --}}
+                    <li class=" nav-item {{ request()->routeIs('user:data-ormas.index') ? 'active' : '' }}" ><a href="{{ route('user:data-ormas.index') }}"><i class="feather icon-book"></i><span class="menu-title" data-i18n="Data Ormas">Data Ormas</span></a>
+                    </li>
+                    <li class=" nav-item {{ request()->routeIs('user:data-ormas.getDataormas') ? 'active' : '' }}" ><a href="{{ route('user:data-ormas.getDataormas') }}"><i class="feather icon-edit-1"></i><span class="menu-title" data-i18n="Data Ormas">Edit Data Ormas</span></a>
+                    </li>
+                    <li class=" navigation-header"><span>Kegiatan</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Kegiatan"></i>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('user:data-kegiatan-ormas.index') ? 'active' : '' }} {{ request()->routeIs('user:data-kegiatan-ormas.edit') ? 'active' : '' }}"><a href="{{ route('user:data-kegiatan-ormas.index') }}"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Kegiatan Ormas">Daftar Kegiatan </span></a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('user:data-kegiatan-ormas.create') ? 'active' : '' }}"><a href="{{ route('user:data-kegiatan-ormas.create') }}"><i class="feather icon-file-plus"></i><span class="menu-title" data-i18n="Kegiatan Ormas">Tambah Kegiatan </span></a>
+                    </li>
+                @endif
                 
-                <li class=" navigation-header"><span>Manajemen User</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Manajemen User"></i>
-                </li>
-                <li class=" nav-item {{ request()->routeIs('admin:management-user*') ? 'active' : '' }}"><a href="{{ route('admin:management-user.index') }}"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Data User">Data User</span></a>
-                </li>
-
-                <li class=" navigation-header"><span>Akun</span><i class=" feather icon-minus" data-toggle="tooltip" data-placement="right" data-original-title="Manajemen User"></i>
-                </li>
-                <li class=" nav-item"><a href=""><i class="fa fa-expeditedssl"></i><span class="menu-title" data-i18n="Data User">Ganti Password</span></a>
-                </li>
-
-                <li class=" nav-item"><a href=""><i class="fa fa-sign-out"></i><span class="menu-title" data-i18n="Data User">Logout</span></a>
-                </li>
+                
             </ul>
         </div>
     </div>
@@ -158,7 +169,7 @@
 
    <!-- BEGIN: Footer-->
    <footer class="footer footer-static footer-light navbar-border">
-    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; {{ Carbon\Carbon::now()->isoFormat('Y') }} <b style="color:#00e7eb;">Diskominfo Wonosobo</b> by <b  style="color:#00e7eb;">Devan Dewananta</b> </span></p>
+    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block"> &copy; {{ Carbon\Carbon::now()->isoFormat('Y') }} <b style="color:#00e7eb;">Diskominfo Wonosobo</b> by <b  style="color:#00e7eb;">Devan Dewananta</b> </span></p>
     </footer>
     <!-- END: Footer-->
 
@@ -192,6 +203,7 @@
 
     <script src="{{ asset('stack-admin/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
     <script src="{{ asset('stack-admin/app-assets/vendors/js/tables/datatable/dataTables.buttons.min.js')}}"></script>
+    <script src="{{ asset('stack-admin/app-assets/vendors/js/tables/datatable/buttons.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stack-admin/app-assets/vendors/js/tables/buttons.flash.min.js')}}"></script>
     <script src="{{ asset('stack-admin/app-assets/vendors/js/tables/jszip.min.js')}}"></script>
     <script src="{{ asset('stack-admin/app-assets/vendors/js/tables/pdfmake.min.js')}}"></script>
